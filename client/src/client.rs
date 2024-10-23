@@ -14,6 +14,7 @@ use std::io::{BufRead, BufReader};
 use std::iter::FromIterator;
 use std::path::PathBuf;
 use std::{fmt, result};
+use std::time::Duration;
 
 use crate::bitcoin;
 use crate::bitcoin::consensus::encode;
