@@ -1289,6 +1289,26 @@ impl Client {
             .map_err(|e| super::error::Error::JsonRpc(e.into()))
     }
 
+    pub fn new_with_custom_timeout(url: &str, auth: Auth, timeout: u64) -> result::Result<Self, Error> {
+        let (user, pass) = auth.get_user_pass()?;
+
+        let user = user.unwrap();
+        let pass = pass.unwrap();
+
+        let transport =
+            jsonrpc::simple_http::Builder::new()
+            .timeout(Duration::from_secs(timeout))
+            .url(url)
+            .unwrap()
+            .auth(user, Some(pass))
+            .build();
+
+        let client = jsonrpc::client::Client::with_transport(transport);
+
+        Ok(Client{ client })
+
+    }
+
     /// Create a new Client using the given [jsonrpc::Client].
     pub fn from_jsonrpc(client: jsonrpc::client::Client) -> Client {
         Client {
