@@ -13,6 +13,7 @@ use std::fs::File;
 use std::iter::FromIterator;
 use std::path::PathBuf;
 use std::{fmt, result};
+use std::time::Duration;
 
 use crate::{bitcoin, deserialize_hex};
 use bitcoin_private::hex::exts::DisplayHex;
